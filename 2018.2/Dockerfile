@@ -40,17 +40,22 @@ WORKDIR /opt/petalinux
 
 COPY ./auto-install.sh .
 
-#RUN cp auto-install.sh autoinstall.sh &&\
-#    chmod a+x autoinstall.sh
-
 RUN wget ${installer_url}/petalinux-v${version}-final-installer.run  && \
     chmod a+x petalinux-v${version}-final-installer.run              && \
     ./auto-install.sh /opt/petalinux/${version} ${version}           && \
     rm -rf petalinux-v${version}-final-installer.run
-# ==================================================================================
+
 USER root
+
 RUN ln -fs /bin/bash /bin/sh    # bash is PetaLinux recommended shell
+
+RUN apt install rsync -y
+
+RUN echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 USER $user
+
+RUN echo "source /opt/petalinux/${version}/settings.sh" >> ~/.bashrc
 
 WORKDIR /home/$user
 

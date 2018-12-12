@@ -8,15 +8,19 @@ echo
 exit 1;
 fi
 
+docker_context=`pwd`
 tftp_dir=$1
 version=$2
 
+if [ ! -d "petalinux-v${version}-final-installer.run" ]; then
 echo 
-echo Make sure you have already put [petalinux-v$version-final-installer.run] in the [$tftp_dir]
+echo Make sure you have already put [petalinux-v${version}-final-installer.run] in the [${tftp_dir}]
+fi
+
 echo Start to build petalinux tools docker image
 echo
 
-cd $tftp_dir
+cd ${tftp_dir}
 python3 -m http.server &
 server_pid=$!
 echo 
@@ -24,13 +28,14 @@ echo PID ${server_pid}
 echo http.server starting...
 echo
 
-#installer_ip=`ifconfig docker0 | grep 'inet\s' | awk '{print $2}' | cut -c 6-`
-#echo $installer_ip
-cd $version
-docker build -t petalinux:$2 .
+cd ${docker_context}
+timestamp=`date +"%Y-%m-%d-%H-%M-%S"`
+docker build -t sonnyhcl/petalinux:$timestamp .
+docker tag sonnyhcl/petalinux:$timestamp sonnyhcl/petalinux:latest
 
-kill $server_pid
+kill ${server_pid}
 
 echo "---------------"
 echo "finish building"
 echo "---------------"
+docker images | grep petalinux

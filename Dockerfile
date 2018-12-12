@@ -16,7 +16,7 @@ RUN 	adduser --disabled-password --gecos '' $user
 
 RUN 	mkdir -p /opt/petalinux /home/$user/project
 
-RUN 	chown -R $user:$user /opt/petalinux
+RUN 	chown -R $user:$user /opt/petalinux /home/$user/project
 
 # using local mirror to speed up
 # COPY /etc/apt/sources.list /etc/apt/sources.list
@@ -58,5 +58,5 @@ RUN 	wget -q ${installer_url}/petalinux-v${version}-final-installer.run  	&& \
 	chmod a+x petalinux-v${version}-final-installer.run                 	&& \
 	./noninteractive-install.sh /opt/petalinux ${version}                   && \
     	rm -rf petalinux-v${version}-final-installer.run			&& \
-    	rm ./auto-install.sh *log
+	rm noninteractive-install.sh *log
 

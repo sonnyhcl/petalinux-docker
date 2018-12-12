@@ -1,10 +1,6 @@
 # petalinux-docker
 encapsulate petalinux tools into docker image
 
-avaiable version:
-- petalinux version:2018.2
-- base image: ubuntu 16.04
-
 > If you feel this is helpful for you, please star us right now :)
 >
 > <https://github.com/sonnyhcl/petalinux-docker>

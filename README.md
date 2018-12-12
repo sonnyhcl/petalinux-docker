@@ -1,7 +1,8 @@
 # petalinux-docker
-Run petalinux using docker tool
+Run petalinux using docker
 
 > If you feel this is helpful for you, please star us right now :)
+>
 > <https://github.com/sonnyhcl/petalinux-docker>
 
 ## Usage

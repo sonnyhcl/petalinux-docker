@@ -13,5 +13,6 @@ send "y\r"
 expect "*>*"
 send "y\r"
 expect "*Petalinux SDK has been installed to*"
-send-user "Auto install petalinux.run done..."
+send_user "auto install petalinux done\r"
+send_user "wait several minutes to clean up\r"
 exit
